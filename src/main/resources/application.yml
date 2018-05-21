@@ -1,0 +1,48 @@
+server:
+    port: 9898
+spring:
+  profiles:
+    active: dev
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    instanceId: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:1111/eureka
+app:
+  name: MyApp
+  description: ${app.name} is a Spring Boot application
+myrandom:
+  secret: ${random.value}
+  number: ${random.int}
+  bignumber: ${random.long}
+  uuid: ${random.uuid}
+  range10: ${random.int(10)}
+  rangeStartAndEnd: ${random.int[1024,65536]}
+my:
+  servers:
+          - dev.com
+          - another.dev.com
+---
+spring:
+  profiles: test
+server:
+    port: 8882
+---
+spring:
+  profiles: dev
+  jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+  application:
+    name: ribbon-consumer
+server:
+    port: 9898
+management:
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: "*"
