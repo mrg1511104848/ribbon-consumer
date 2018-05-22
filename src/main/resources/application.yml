@@ -10,7 +10,10 @@ eureka:
     instanceId: ${spring.application.name}:${server.port}
   client:
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:1111/eureka
+#单节点注册中心
+#      defaultZone: http://${eureka.instance.hostname}:1111/eureka
+#多节点注册中心
+       defaultZone: http://registerServer1:1111/eureka,http://registerServer2:1112/eureka
 app:
   name: MyApp
   description: ${app.name} is a Spring Boot application
